@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.util.*;
 
 public class Main {
+    //TODO: Implement command line stuff
     public static void main(String[] args) {
 
     }
