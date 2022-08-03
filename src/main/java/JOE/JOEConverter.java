@@ -176,6 +176,7 @@ public class JOEConverter {
                 "PLAYDEF_1",
                 joeFile.getName().replaceFirst("\\.json.*$|\\.joe.*$",""),
                 pages);
+        assert popByte() == 0 : "Footer Byte not zero";
         // No idea what version means either, so setting it to mimic JSON files (they have it set as 4)
         return new JOEFile(sheets, sheetFormatDescriptor, 4);
     }
