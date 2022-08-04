@@ -1,0 +1,46 @@
+{
+    "content": {
+        "objects": {
+            "People": [
+                {
+                    "Username": "mcneb10",
+                    "Money": 1000000.42,
+                    "Account Number": 25,
+                    "Negative Number": -1,
+                    "IsTest": true
+                },
+                {
+                    "Username": "bob",
+                    "Money": 123456.789,
+                    "Account Number": 26,
+                    "Negative Number": -22,
+                    "IsTest": false
+                }
+            ],
+            "Cars": [
+                {
+                    "Plate": "PlateTest",
+                    "History": ["Oil Change on 8/2/1999", "Rear-Ended on 12/8/2001", "Maintenance due to not changing oil on 2/31/2003"]
+                }
+            ]
+        }
+    },
+    "spreadsheetInfo": {
+        "hash": "none",
+        "importTime": "none",
+        "importerVersion": "1",
+        "spreadsheetFormat": "PLAYDEF_1",
+        "spreadsheetName": "encodingTest",
+        "pages": [
+            {
+                "pageName": "People",
+                "columns": ["Username", "Money", "Account Number", "Negative Number","IsTest"]
+            },
+            {
+                "pageName": "Cars",
+                "columns": ["Plate","History"]
+            }
+        ]
+    },
+    "version": 4
+}
