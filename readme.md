@@ -20,7 +20,12 @@ I'm pretty sure it is also capable of adding content to the game.
 Currently, there are methods to convert JSON to and from the tool's internal format.
 There are also methods to convert the internal JOE format to a JOE file.
 This means you have the ability decode a JOE file, modify it, and re-encode it.
-I am also planning on implementing functions that allow for extracting and recompiling assetbundles in the future.
+I am also planning on implementing functions that allow for extracting and recompiling asset bundles in the future.
+# How to use this program
+```
+java -jar JOEtools.jar [options]
+```
+use the --help option to get a summary of commands
 # Description of the JOE file format
 
 **WIP**
