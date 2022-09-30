@@ -1,10 +1,8 @@
 package JOE;
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.MalformedJsonException;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 public class Utils {
@@ -32,6 +30,16 @@ public class Utils {
         };
         gson = new GsonBuilder().setPrettyPrinting().setObjectToNumberStrategy(toNumberStrategy).create();
         logger = Logger.getLogger("com.mcneb10.JOEtool");
+    }
+    public void statusBar(double percent) {
+        System.out.print('[');
+        // Print bar
+        for(int i=0;i<percent*50;i++) System.out.print('#');
+        // Pad with spaces
+        for(int i=0;i<(1-percent)*50;i++) System.out.print(' ');
+        // End progress bar if the end is near, otherwise print carrige return so the progress bar is overwritten
+        System.out.printf("] (%.2f%%)%c", percent*100, percent == 1d ? '\n' : '\r');
+
     }
     public static Utils getInstance() {
         if(instance == null) {

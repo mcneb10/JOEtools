@@ -44,6 +44,20 @@ After this is a list of floats
 After this is an integer of the String Array Count
 
 A String array is formatted like this
-Variable length of 
 
-**WIP**
+Variable length of the amount of strings
+
+For each string is a variable length that is an index to the list of strings
+
+After this is a variable length with the sheet count
+
+After this is a variable length with a index to the stings list. This is a name for a sheet.
+
+After this is a repeating sheet data structure formatted like this
+
+(
+    Variable Length: Column Count
+    
+)
+
+# TODO: Clean this up

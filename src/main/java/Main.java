@@ -1,13 +1,58 @@
 import JOE.*;
-import com.google.gson.Gson;
+import picocli.CommandLine;
+import picocli.CommandLine.*;
 
-import java.util.*;
+import java.io.File;
 
 public class Main {
     //TODO: Implement command line stuff
-    public static void main(String[] args) {
+    static class CommandOpts {
+        @Option(names = {"-e", "--encode"}, description = "Encode JSON as JOE file")
+        boolean encode;
 
+        @Option(names = {"-d", "--decode"}, description = "Decode JOE file to JSON")
+        boolean decode;
+
+        @Parameters(paramLabel = "INPUTFILE", description = "Input File", defaultValue = "there is no file.")
+        String inputfile;
+
+        @Option(names = { "-o", "--output" }, description = "Output File", defaultValue = "there is no file.")
+        String outputfile;
+
+        @Option(names = { "-h", "--help" }, description = "Display help and exit", usageHelp = true)
+        boolean help;
     }
+    // Since assert may be disabled, implement assert that can't be disabled
+    private static void assertForceful(boolean condition, String errormessage) {
+        if(!condition) {
+            error(errormessage);
+            System.exit(-1);
+        }
+    }
+    private static void error(String errormessage) {
+        System.err.println("ERROR: "+errormessage);
+    }
+    public static void main(String[] args) throws Exception {
+        CommandOpts commandOpts = new CommandOpts();
+        CommandLine cmdLine = new CommandLine(commandOpts);
+        cmdLine.parseArgs(args);
+        // Quit if help is requested
+        if(commandOpts.help) {
+            cmdLine.usage(System.out);
+            System.exit(-1);
+        }
+        // Sanity Checks
+        assertForceful(!(commandOpts.decode&&commandOpts.encode), "You can't encode and decode at the same time!");
+        assertForceful(commandOpts.encode || commandOpts.decode || commandOpts.help, "No options specified.\n See help with option --help or -h");
+        assertForceful(!commandOpts.inputfile.equals("there is no file."), "No input file specified.");
+        File outputfile = commandOpts.outputfile.equals("there is no file.") ? new File(commandOpts.outputfile+".out"): new File(commandOpts.outputfile);
+        if(commandOpts.decode) {
+            JOEConverter.joeToJSON(new File(commandOpts.inputfile), outputfile);
+        } else if(commandOpts.encode) {
+            JOEConverter.jsonToJOE(new File(commandOpts.inputfile), outputfile);
+        }
+    }
+
     /*
         Example (this will completely recreate the file swcFiles\1543871454\patches\abtests\ab_naval_event_data.json):
         // Content

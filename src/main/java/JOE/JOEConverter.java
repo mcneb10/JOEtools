@@ -63,7 +63,7 @@ public class JOEConverter {
         }
         if(bytes == null) throw new NullPointerException();
         byteList = new ArrayList<>(Bytes.asList(bytes));
-        Utils.getInstance().logger.info("Size of JOE file: "+byteList.size());
+        logger.info("Size of JOE file: "+byteList.size());
         String joe = new String(popBytes(3));
         if(!joe.equals("JOE")) throw new Exception("Invalid Header!");
         long version = decodeVariableLength();
@@ -71,22 +71,26 @@ public class JOEConverter {
         int stringCount = decodeInt();
         logger.log(Level.INFO, "String Count: "+stringCount);
         for(int i = 0; i<stringCount;i++) {
+            Utils.getInstance().statusBar((double)i/stringCount);
             long stringLength = decodeVariableLength();
             strings.add(new String(popBytes((int)stringLength)));
         }
         int intCount = decodeInt();
         logger.log(Level.INFO, "Int Count: "+intCount);
         for(int i = 0; i<intCount;i++) {
+            Utils.getInstance().statusBar((double)i/intCount);
             ints.add(decodeInt());
         }
         int floatCount = decodeInt();
         logger.log(Level.INFO, "Float Count: "+floatCount);
         for(int i = 0; i<floatCount;i++) {
+            Utils.getInstance().statusBar((double)i/floatCount);
             floats.add(decodeFloat());
         }
         int stringArrayCount = decodeInt();
         logger.log(Level.INFO, "String Array Count: "+stringArrayCount);
         for(int i = 0; i<stringArrayCount;i++) {
+            Utils.getInstance().statusBar((double)i/stringArrayCount);
             long arrayLength = decodeVariableLength();
             List<String> stringArray = new ArrayList<>();
             for(long j = 0;j<arrayLength;j++) {
@@ -98,6 +102,7 @@ public class JOEConverter {
         long sheetCount = decodeVariableLength();
         logger.log(Level.INFO,"Sheet Count: "+sheetCount);
         for(int i = 0; i < sheetCount; i++) {
+            Utils.getInstance().statusBar((double)i/sheetCount);
             String sheetName = strings.get((int)decodeVariableLength());
             sheetNames.add(sheetName);
         }
@@ -264,7 +269,6 @@ public class JOEConverter {
     private static void pushFloat(float f) {
         pushLittleEndianInt(Float.floatToIntBits(f));
     }
-    //TODO: write internalJOEtoJOE
     public static void internalJOEtoJOE(JOEFile joe, File output) throws IOException {
         byteList = new ArrayList<>();
         List<String> strings = new ArrayList<>();
